@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     allBreeds: {},
-    dogs: []
+    dogs: [],
+    likedDogs: localStorage.getItem('favoriteDogs') ? localStorage.getItem('favoriteDogs') : []
   },
   getters: {
   },
@@ -16,14 +17,18 @@ export default new Vuex.Store({
       state.allBreeds = data
     },
     SET_DOGS (state, data) {
-      state.dogs.push(data)
+      state.dogs = data
+    },
+    SET_LIKED (state, url) {
+      state.likedDogs.push(url)
+      localStorage.setItem('favoriteDogs', state.likedDogs)
     }
   },
   actions: {
     LOAD_BREEDS_LIST ({commit}) {
       const url = 'https://dog.ceo/api/breeds/list/all'
       axios.get(url).then((response) => {
-        commit('SET_BREEDS_LIST', {allBreeds: response.data.message})
+        commit('SET_BREEDS_LIST', response.data.message)
       }, (err) => {
         console.log(err)
       })
@@ -31,7 +36,7 @@ export default new Vuex.Store({
     LOAD_DOGS ({commit}) {
       const url = 'https://dog.ceo/api/breeds/image/random/20'
       axios.get(url).then((response) => {
-        commit('SET_DOGS', {allBreeds: response.data.message})
+        commit('SET_DOGS', response.data.message)
       }, (err) => {
         console.log(err)
       })
