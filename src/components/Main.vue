@@ -1,20 +1,32 @@
 <template>
-    <ul>
-        <li>Отображает список изображений всех собак.
-        </li>
-        <li>В шапке должен быть селект позволяющий отфильтровать изображения по породе.
-        </li>
-        <li>По стандарту должно отображаться 20 изображений и реализован бесконечный скролл с подгрузкой следующих 20
-            изображений.
-        </li>
-    </ul>
+    <div class="">
+        <Header />
+
+    </div>
 </template>
 
 <script>
-import Header from '@/components/header'
+import {mapState, mapActions} from 'vuex'
+import Header from '@/components/Header.vue'
 
 export default {
-  name: 'main'
+  name: 'main',
+  mounted () {
+    this.$store.dispatch('getTwentyRandomDogs')
+    this.$store.dispatch('getDogsList')
+  },
+  components: {
+    Header
+  },
+  methods: {
+    ...mapActions('allBreeds', ['setList'])
+  },
+  computed: {
+    ...mapState([
+      'allBreeds',
+      'dogs'
+    ])
+  }
 }
 </script>
 

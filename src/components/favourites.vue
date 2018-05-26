@@ -1,10 +1,18 @@
 <template>
-    <p>favourites</p>
+<div class="">
+    <Header />
+
+</div>
 </template>
 
 <script>
+import Header from '@/components/Header.vue'
+
 export default {
-  name: 'Favorite'
+  name: 'Favorite',
+  components: {
+    Header
+  }
 }
 </script>
 
