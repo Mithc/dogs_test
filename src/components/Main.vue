@@ -109,7 +109,7 @@ export default {
             margin: 30px 0 0 2%;
             flex-grow: 1;
             height: auto;
-            max-width: calc(100% * (1 / 6) + 20px );
+            max-width: 18%;
             border: 2px solid #23004b;
             padding: 32px;
             flex-direction: column;
