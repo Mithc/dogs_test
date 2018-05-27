@@ -1,6 +1,12 @@
 <template>
     <div class="main">
         <Header/>
+        <div class="select-by-breed">
+            <label for="breed-select">Filter by breed</label>
+            <select v-model="breedFilter" id="breed-select">
+                <option v-for="(dog, index) in dogs" :key="`dog-${index}`" :value="dog.split('/')[4]">{{dog.split('/')[4]}}</option>
+            </select>
+        </div>
         <div class="doge-cards">
             <div class="doge-card" v-for="(dog, index) in dogs" :key="`dog-${index}`">
                 <img height="auto" width="100%" v-bind:src="dog" alt="">
@@ -19,6 +25,12 @@ import Header from '@/components/Header.vue'
 
 export default {
   name: 'main',
+  data () {
+    return {
+      breedFilter: '',
+      breeds: [],
+    }
+  },
   mounted () {
     this.$store.dispatch('LOAD_DOGS')
   },
@@ -31,9 +43,11 @@ export default {
   destroyed: function () {
     window.removeEventListener('scroll', this.handleScroll)
   },
+  updated: function () {
+    console.log(this.breedFilter)
+  },
   computed: {
     ...mapState([
-      'allBreeds',
       'dogs',
       'likedDogs'
     ])
@@ -66,6 +80,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .select-by-breed {
+        background-color: #2a2a2a;
+        position: relative;
+        width: 100%;
+        height: 100px;
+        label {
+            font-size: 20px;
+            color: #a5aaaf;
+        }
+        select {
+            background-color: aliceblue;
+            margin: 25px;
+            height: 30px;
+            width: 50%;
+            font-size: 20px;
+        }
+    }
     .doge-cards {
         display: flex;
         flex-wrap: wrap;
@@ -83,14 +114,11 @@ export default {
             padding: 32px;
             flex-direction: column;
             justify-content: space-between;
+            p {
+                color: #c9ced3;
+            }
             img {
                 border-radius: 2px;
-                -webkit-filter: grayscale(20%); /* Safari 6.0 - 9.0 */
-                filter: grayscale(20%);
-                &:hover {
-                    -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
-                    filter: grayscale(0);
-                }
             }
         }
         .like {
@@ -102,7 +130,6 @@ export default {
             font-size: 20px;
             button {
                 font-size: 20px;
-
                 border-radius: 4px;
                 border: #000 solid 1px;
                 background-color: #2a2a2a;

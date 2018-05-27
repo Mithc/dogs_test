@@ -2,8 +2,8 @@
     <div class="header">
         <div class="routes">
             <router-link to="/">main</router-link>
-            <router-link to="/favorite">favourites</router-link>
             <a v-on:click="seen = !seen">breed⮟</a>
+            <router-link to="/favorite">favourites</router-link>
         </div>
         <div v-show="!seen">
             <div class="breedsList">

@@ -2,6 +2,9 @@
 <div class="">
     <Header />
     <div class="doge-cards">
+        <div class="fav-header">
+            <h1>Favourites</h1>
+        </div>
         <div class="doge-card" v-for="(dog, index) in likedDogs" :key="`dog-${index}`">
             <img height="auto" width="100%" v-bind:src="dog" alt="">
             <p>{{getBreed(dog)}}</p>
@@ -34,12 +37,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .fav-header {
+        width: 100%;
+        font-size: 30px;
+        margin-top: 30px;
+        background-color: #2a2a2a;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        color: white;
+    }
     .doge-cards {
         display: flex;
         flex-wrap: wrap;
         background-color: #2a2a2a;
         left: 0;
-        padding: 10px;
+        padding: 20px;
         .doge-card {
             display: flex;
             background: #2a2a2a;
@@ -47,10 +59,13 @@ export default {
             flex-grow: 1;
             height: auto;
             max-width: calc(100% * (1 / 6) + 20px );
-            border: 2px solid #25004b;
+            border: 2px solid #23004b;
             padding: 32px;
             flex-direction: column;
-            justify-content: space-around;
+            justify-content: space-between;
+            p {
+                color: #c9ced3;
+            }
             img {
                 border-radius: 2px;
             }
