@@ -1,6 +1,4 @@
-# y
-
-> test 
+# Dogs app
 
 ## Build Setup
 
