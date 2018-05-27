@@ -45,6 +45,7 @@ export default {
 
 <style lang="scss" scoped>
     .routes {
+        z-index: 2;
         font-size: 50px;
         color: aliceblue;
         height: 66px;
@@ -56,9 +57,6 @@ export default {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        .router-link-active {
-            color: aquamarine;
-        }
         a {
             cursor: pointer;
             text-decoration: none;
@@ -69,14 +67,26 @@ export default {
         }
     }
     .breedsList {
-        margin-top: 66px;
+        position: fixed;
+        top: 66px;
         padding: 10px;
+        width: 100%;
+        height: auto;
+        background-color: black;
+        z-index: 2;
         .breedItem {
             display: inline-block;
             background-color: #000000;
             width: 120px;
             height: 30px;
             border: aqua;
+            a {
+                text-decoration: none;
+                color: #757a7f;
+                &:hover {
+                    color: #d3d8dd;
+                }
+            }
         }
     }
 </style>

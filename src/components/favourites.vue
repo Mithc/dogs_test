@@ -39,19 +39,18 @@ export default {
         flex-wrap: wrap;
         background-color: #2a2a2a;
         left: 0;
-        padding: 20px;
+        padding: 10px;
         .doge-card {
             display: flex;
             background: #2a2a2a;
-            margin: 50px 0 0 2%;
+            margin: 30px 0 0 2%;
             flex-grow: 1;
             height: auto;
-            width: calc(100% * (1 / 6) - 10px - 1px);
-            border-radius: 20px;
-            border: 2px solid #410081;
+            max-width: calc(100% * (1 / 6) + 20px );
+            border: 2px solid #25004b;
             padding: 32px;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-around;
             img {
                 border-radius: 2px;
             }

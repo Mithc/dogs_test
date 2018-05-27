@@ -2,6 +2,9 @@
     <div class="breed">
         <Header />
         <div class="doge-cards">
+            <div class="breed-name">
+                <h1>{{$route.params.breed}}</h1>
+            </div>
             <div class="doge-card" v-for="(dog, index) in dogsByBreed" :key="`dog-${index}`">
                 <img height="auto" width="100%" v-bind:src="dog" alt="">
             </div>
@@ -33,6 +36,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    .breed-name {
+        width: 100%;
+        font-size: 30px;
+        margin-top: 30px;
+        background-color: #2a2a2a;
+        text-transform: uppercase;
+        margin-bottom: 0;
+        color: white;
+    }
     .doge-cards {
         display: flex;
         flex-wrap: wrap;
@@ -42,11 +54,10 @@ export default {
         .doge-card {
             display: flex;
             background: #2a2a2a;
-            margin: 50px 0 0 2%;
+            margin: 30px 0 0 2%;
             flex-grow: 1;
             height: auto;
-            width: calc(100% * (1 / 6) - 10px - 1px);
-            border-radius: 20px;
+            max-width: calc(100% * (1 / 6) + 20px );
             border: 2px solid #410081;
             padding: 32px;
             flex-direction: column;

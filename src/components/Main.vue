@@ -6,7 +6,7 @@
                 <img height="auto" width="100%" v-bind:src="dog" alt="">
                 <div class="like">
                     <p>{{getBreed(dog)}}</p>
-                    <button :class="{ active: likedDogs.indexOf(dog) === -1 }" v-on:click="likeBreed(dog)">Like</button>
+                    <button :class="{ active: likedDogs.indexOf(dog) !== -1 }" v-on:click="likeBreed(dog)">Like</button>
                 </div>
             </div>
         </div>
@@ -75,17 +75,22 @@ export default {
         .doge-card {
             display: flex;
             background: #2a2a2a;
-            margin: 50px 0 0 2%;
+            margin: 30px 0 0 2%;
             flex-grow: 1;
             height: auto;
-            width: calc(100% * (1 / 6) - 10px - 1px);
-            border-radius: 20px;
-            border: 2px solid #410081;
+            max-width: calc(100% * (1 / 6) + 20px );
+            border: 2px solid #23004b;
             padding: 32px;
             flex-direction: column;
             justify-content: space-between;
             img {
                 border-radius: 2px;
+                -webkit-filter: grayscale(20%); /* Safari 6.0 - 9.0 */
+                filter: grayscale(20%);
+                &:hover {
+                    -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+                    filter: grayscale(0);
+                }
             }
         }
         .like {
@@ -94,18 +99,24 @@ export default {
             justify-content: space-between;
             margin-top: 16px;
             align-items: center;
+            font-size: 20px;
             button {
+                font-size: 20px;
+
                 border-radius: 4px;
-                border: none;
-                background-color: #5600a1;
+                border: #000 solid 1px;
+                background-color: #2a2a2a;
                 color: #000000;
                 width: 64px;
                 height: 32px;
                 cursor: pointer;
                 outline: none;
+                &.active {
+                    background-color: #500052;
+                }
             }
             button:hover {
-                background-color: #410081;
+                background-color: #4b4b4b;
             }
         }
     }
