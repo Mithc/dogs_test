@@ -18,14 +18,16 @@ export default new Vuex.Store({
       state.allBreeds = data
     },
     SET_DOGS (state, data) {
-      state.dogs = data
+      data.forEach((item) => {
+        state.dogs.push(item)
+      })
     },
     SET_LIKED (state, url) {
       state.likedDogs.push(url)
       localStorage.setItem('favoriteDogs', JSON.stringify(state.likedDogs))
     },
     SET_DOGS_BY_BREED (state, data) {
-      state.dogsByBreed = data
+      state.dogsByBreed = data.splice(0, 24)
     }
   },
   actions: {

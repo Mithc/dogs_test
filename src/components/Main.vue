@@ -1,12 +1,12 @@
 <template>
-    <div class="">
+    <div class="main">
         <Header/>
         <div class="doge-cards">
             <div class="doge-card" v-for="(dog, index) in dogs" :key="`dog-${index}`">
-                <img height="auto" width="200" v-bind:src="dog" alt="">
+                <img height="auto" width="100%" v-bind:src="dog" alt="">
                 <div class="like">
                     <p>{{getBreed(dog)}}</p>
-                    <button :class="{ active: likedDogs.indexOf(url) !== -1 }" v-on:click="likeBreed(dog)">Like</button>
+                    <button :class="{ active: likedDogs.indexOf(dog) === -1 }" v-on:click="likeBreed(dog)">Like</button>
                 </div>
             </div>
         </div>
@@ -25,6 +25,12 @@ export default {
   components: {
     Header
   },
+  created: function () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed: function () {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   computed: {
     ...mapState([
       'allBreeds',
@@ -38,8 +44,21 @@ export default {
       return urlSplit[4]
     },
     likeBreed (url) {
-      if (this.likedDogs.indexOf(url) !== -1) {
+      if (this.likedDogs.indexOf(url) === -1) {
         this.$store.commit('SET_LIKED', url)
+      }
+    },
+    handleScroll: function (event) {
+      let scroll = window.pageYOffset + document.documentElement.clientHeight
+      let windowHeight = document.documentElement.scrollHeight
+      if (scroll / windowHeight > 0.95) {
+        this.$store.dispatch('LOAD_DOGS')
+
+        // fix for stoploading
+        window.removeEventListener('scroll', this.handleScroll)
+        setTimeout(() => {
+          window.addEventListener('scroll', this.handleScroll)
+        }, 500)
       }
     }
   }
@@ -50,38 +69,43 @@ export default {
     .doge-cards {
         display: flex;
         flex-wrap: wrap;
-        background-color: white;
-
+        background-color: #2a2a2a;
+        left: 0;
+        padding: 20px;
         .doge-card {
-            width: auto;
-            background-color: white;
-            height: auto;
-            border-radius: 8px;
-            border: 1px solid #d0d3d5;
-            padding: 32px;
-            margin: 32px auto;
             display: flex;
+            background: #2a2a2a;
+            margin: 50px 0 0 2%;
+            flex-grow: 1;
+            height: auto;
+            width: calc(100% * (1 / 6) - 10px - 1px);
+            border-radius: 20px;
+            border: 2px solid #410081;
+            padding: 32px;
             flex-direction: column;
             justify-content: space-between;
+            img {
+                border-radius: 2px;
+            }
         }
-        .like{
+        .like {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             margin-top: 16px;
             align-items: center;
-            button{
+            button {
                 border-radius: 4px;
                 border: none;
-                background-color: lightblue;
-                color: white;
+                background-color: #5600a1;
+                color: #000000;
                 width: 64px;
                 height: 32px;
                 cursor: pointer;
                 outline: none;
             }
-            button:hover{
-                background-color: lightskyblue;
+            button:hover {
+                background-color: #410081;
             }
         }
     }

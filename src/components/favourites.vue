@@ -1,9 +1,9 @@
 <template>
 <div class="">
     <Header />
-    <div class="doge-cards" v-for="(dog, index) in likedDogs" :key="`dog-${index}`">
-        <div class="doge-card" v-on:click="likeBreed(dog)">
-            <img height="auto" width="200" v-bind:src="dog" alt="">
+    <div class="doge-cards">
+        <div class="doge-card" v-for="(dog, index) in likedDogs" :key="`dog-${index}`">
+            <img height="auto" width="100%" v-bind:src="dog" alt="">
             <p>{{getBreed(dog)}}</p>
         </div>
     </div>
@@ -33,30 +33,28 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
     .doge-cards {
-        /*margin-top: 75px;*/
-        /*display: grid;*/
-        /*grid-gap: 50px 50px;*/
-        /*grid-column-start: 1;*/
-        /*grid-column-end: 3;*/
-        /*grid-template-columns: 25% 25% 25%;*/
-        /*align-content: start;*/
-        /*justify-content: space-evenly;*/
         display: flex;
-        flex-direction: column;
-        background-color: white;
-        align-items: center;
+        flex-wrap: wrap;
+        background-color: #2a2a2a;
+        left: 0;
+        padding: 20px;
         .doge-card {
-            /*padding: 10px;*/
-            width: auto;
-            background-color: white;
+            display: flex;
+            background: #2a2a2a;
+            margin: 50px 0 0 2%;
+            flex-grow: 1;
             height: auto;
-            border-radius: 8px;
-            border: 1px solid #d0d3d5;
+            width: calc(100% * (1 / 6) - 10px - 1px);
+            border-radius: 20px;
+            border: 2px solid #410081;
             padding: 32px;
-            margin: 32px auto;
+            flex-direction: column;
+            justify-content: space-between;
+            img {
+                border-radius: 2px;
+            }
         }
     }
 </style>
