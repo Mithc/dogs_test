@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     allBreeds: {},
     dogs: [],
-    likedDogs: localStorage.getItem('favoriteDogs') ? localStorage.getItem('favoriteDogs') : []
+    likedDogs: JSON.parse(localStorage.getItem('favoriteDogs')) ? JSON.parse(localStorage.getItem('favoriteDogs')) : [],
+    dogsByBreed: []
   },
   getters: {
   },
@@ -21,7 +22,10 @@ export default new Vuex.Store({
     },
     SET_LIKED (state, url) {
       state.likedDogs.push(url)
-      localStorage.setItem('favoriteDogs', state.likedDogs)
+      localStorage.setItem('favoriteDogs', JSON.stringify(state.likedDogs))
+    },
+    SET_DOGS_BY_BREED (state, data) {
+      state.dogsByBreed = data
     }
   },
   actions: {
@@ -37,6 +41,14 @@ export default new Vuex.Store({
       const url = 'https://dog.ceo/api/breeds/image/random/20'
       axios.get(url).then((response) => {
         commit('SET_DOGS', response.data.message)
+      }, (err) => {
+        console.log(err)
+      })
+    },
+    LOAD_DOGS_BY_BREED ({commit}, breed) {
+      const url = 'https://dog.ceo/api/breed/' + breed + '/images'
+      axios.get(url).then((response) => {
+        commit('SET_DOGS_BY_BREED', response.data.message)
       }, (err) => {
         console.log(err)
       })
