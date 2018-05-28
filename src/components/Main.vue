@@ -4,6 +4,7 @@
         <div class="select-by-breed">
             <label for="breed-select">Filter by breed</label>
             <select v-on:change="filterByBreed(breedFilter)" v-model="breedFilter" id="breed-select">
+                <option value="">Choose breed</option>
                 <option v-for="(dog, index) in dogs" :key="`dog-${index}`" :value="dog.split('/')[4]">{{dog.split('/')[4]}}</option>
             </select>
             <button class="clear-filter-button" v-on:click="clearFilter()">Clear Filter</button>
@@ -58,9 +59,11 @@ export default {
       return urlSplit[4]
     },
     filterByBreed (breedFilter) {
+      window.removeEventListener('scroll', this.handleScroll)
       this.dogsToShow = this.$store.getters.filteredDogs(breedFilter)
     },
     clearFilter () {
+      window.addEventListener('scroll', this.handleScroll)
       this.dogsToShow = this.dogs
     },
     likeBreed (url) {
@@ -94,20 +97,33 @@ export default {
         height: 100px;
         label {
             font-size: 20px;
-            color: #a5aaaf;
+            color: #80858a;
         }
         select {
-            background-color: aliceblue;
+            color: #80858a;
             margin: 25px;
             height: 30px;
             width: 50%;
             font-size: 20px;
+            border: 1px solid  #a5aaaf;
+            border-radius:  8px;
+            &:focus {
+                outline: none;
+            }
         }
         .clear-filter-button {
+            color: #80858a;
             height: 30px;
             font-size: 20px;
             border-radius: 8px;
-            background-color: #a5aaaf;
+            background-color: white;
+            border: 1px solid #a5aaaf;
+            &:focus {
+                outline: none;
+            }
+            &:hover {
+                background-color: #d7d7d7;
+            }
         }
     }
     .doge-cards {
@@ -152,7 +168,7 @@ export default {
                 cursor: pointer;
                 outline: none;
                 &.active {
-                    background-color: #500052;
+                    background-color: #4b4b4b;
                 }
             }
             button:hover {

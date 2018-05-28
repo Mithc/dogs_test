@@ -46,7 +46,7 @@ export default {
 <style lang="scss" scoped>
     .routes {
         z-index: 2;
-        font-size: 50px;
+        font-size: 40px;
         color: aliceblue;
         height: 66px;
         width: 100%;
