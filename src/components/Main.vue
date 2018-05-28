@@ -3,12 +3,13 @@
         <Header/>
         <div class="select-by-breed">
             <label for="breed-select">Filter by breed</label>
-            <select v-model="breedFilter" id="breed-select">
+            <select v-on:change="filterByBreed(breedFilter)" v-model="breedFilter" id="breed-select">
                 <option v-for="(dog, index) in dogs" :key="`dog-${index}`" :value="dog.split('/')[4]">{{dog.split('/')[4]}}</option>
             </select>
+            <button class="clear-filter-button" v-on:click="clearFilter()">Clear Filter</button>
         </div>
         <div class="doge-cards">
-            <div class="doge-card" v-for="(dog, index) in dogs" :key="`dog-${index}`">
+            <div class="doge-card" v-for="(dog, index) in dogsToShow" :key="`dog-${index}`">
                 <img height="auto" width="100%" v-bind:src="dog" alt="">
                 <div class="like">
                     <p>{{getBreed(dog)}}</p>
@@ -28,7 +29,8 @@ export default {
   data () {
     return {
       breedFilter: '',
-      breeds: []
+      breeds: [],
+      dogsToShow: []
     }
   },
   mounted () {
@@ -38,13 +40,11 @@ export default {
     Header
   },
   created: function () {
+    this.dogsToShow = this.dogs
     window.addEventListener('scroll', this.handleScroll)
   },
   destroyed: function () {
     window.removeEventListener('scroll', this.handleScroll)
-  },
-  updated: function () {
-    console.log(this.breedFilter)
   },
   computed: {
     ...mapState([
@@ -57,12 +57,18 @@ export default {
       let urlSplit = url.split('/')
       return urlSplit[4]
     },
+    filterByBreed (breedFilter) {
+      this.dogsToShow = this.$store.getters.filteredDogs(breedFilter)
+    },
+    clearFilter () {
+      this.dogsToShow = this.dogs
+    },
     likeBreed (url) {
       if (this.likedDogs.indexOf(url) === -1) {
         this.$store.commit('SET_LIKED', url)
       }
     },
-    handleScroll: function (event) {
+    handleScroll (event) {
       let scroll = window.pageYOffset + document.documentElement.clientHeight
       let windowHeight = document.documentElement.scrollHeight
       if (scroll / windowHeight > 0.95) {
@@ -81,7 +87,8 @@ export default {
 
 <style lang="scss" scoped>
     .select-by-breed {
-        background-color: #2a2a2a;
+        padding-top: 50px;
+        background-color: white;
         position: relative;
         width: 100%;
         height: 100px;
@@ -96,11 +103,17 @@ export default {
             width: 50%;
             font-size: 20px;
         }
+        .clear-filter-button {
+            height: 30px;
+            font-size: 20px;
+            border-radius: 8px;
+            background-color: #a5aaaf;
+        }
     }
     .doge-cards {
         display: flex;
         flex-wrap: wrap;
-        background-color: #2a2a2a;
+        background-color: white;
         left: 0;
         padding: 20px;
         .doge-card {
