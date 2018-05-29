@@ -40,15 +40,15 @@ export default {
         width: 100%;
         font-size: 30px;
         margin-top: 30px;
-        background-color: #2a2a2a;
+        background-color: white;
         text-transform: uppercase;
         margin-bottom: 0;
-        color: white;
+        color: #000000;
     }
     .doge-cards {
         display: flex;
         flex-wrap: wrap;
-        background-color: #2a2a2a;
+        background-color: white;
         left: 0;
         padding: 20px;
         .doge-card {

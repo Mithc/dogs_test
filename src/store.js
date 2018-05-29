@@ -9,9 +9,15 @@ export default new Vuex.Store({
     allBreeds: {},
     dogs: [],
     likedDogs: JSON.parse(localStorage.getItem('favoriteDogs')) ? JSON.parse(localStorage.getItem('favoriteDogs')) : [],
-    dogsByBreed: []
+    dogsByBreed: [],
+    filteredDogs: []
   },
   getters: {
+    filteredDogs: state => breed => {
+      return state.dogs.filter((url) => {
+        return url.indexOf(breed) > -1
+      })
+    }
   },
   mutations: {
     SET_BREEDS_LIST (state, data) {
