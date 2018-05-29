@@ -24,9 +24,7 @@ export default new Vuex.Store({
       state.allBreeds = data
     },
     SET_DOGS (state, data) {
-      data.forEach((item) => {
-        state.dogs.push(item)
-      })
+        state.dogs = [...state.dogs,...data]
     },
     SET_LIKED (state, url) {
       state.likedDogs.push(url)
